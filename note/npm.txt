@@ -1,0 +1,19 @@
+
+npm i react-router-dom
+
+//store
+npm i redux
+npm i react-redux
+npm i redux-thunk
+
+//call api
+npm i axios
+
+//css
+npm i tailwindcss (lên trang chủ cài đặt)
+
+//xử lý chuỗi
+npm i lodash
+
+//xử lý date
+npm i moment
