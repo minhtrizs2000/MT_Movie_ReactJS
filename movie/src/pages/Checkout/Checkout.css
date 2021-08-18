@@ -1,0 +1,63 @@
+.ghe {
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    background-color: #777777;
+    border: 1px solid #777777;
+    color: #ffffff;
+}
+
+.gheDaDat {
+    background-color: #000000 !important;
+    border: 1px solid #ff0000 !important;
+    color: #ff0000 !important;
+    cursor: not-allowed;
+}
+
+.gheDangDat {
+    background-color: #18ffff !important;
+    border: 1px solid #18ffff !important;
+    color: #000000 !important;
+}
+
+.gheVip {
+    background-color: #a78bfa;
+    border: 1px solid #a78bfa;
+    color: #000000;
+}
+
+.gheMinhDat {
+    background-color: #000000 !important;
+    border: 1px solid #12a3a3 !important;
+    color: #12a3a3 !important;
+    cursor: not-allowed;
+}
+
+.gheKhachDangDat{
+    background-color: #000000 !important;
+    border: 1px solid #ff5000 !important;
+    color: #ff5000 !important;
+    cursor: not-allowed;
+}
+
+/* -----
+SVG Icons - svgicons.sparkk.fr
+----- */
+
+.svg-icon {
+    width: 2em;
+    height: 2em;
+}
+
+.svg-icon path,
+.svg-icon polygon,
+.svg-icon rect {
+    fill: #18ffff;
+}
+
+.svg-icon circle {
+    stroke: #18ffff;
+    stroke-width: 1;
+}

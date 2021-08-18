@@ -10,10 +10,29 @@ npm i redux-thunk
 npm i axios
 
 //css
-npm i tailwindcss (lên trang chủ cài đặt)
+npm i tailwindcss (lên trang chủ cài đặt) không sd bootstrap
 
 //xử lý chuỗi
 npm i lodash
 
 //xử lý date
 npm i moment
+
+//ant design (xem them installation tren trang chu)
+npm i antd
+
+//routing
+npm i history@4.10.0
+
+//hieu ung Slick
+npm i react-slick
+npm i slick-carousel
+
+//video player for react
+npm i react-player
+
+//formik yup xu ly form data
+npm i formil yup
+
+//signalr xu ly realtime data
+npm i @aspnet/signalr

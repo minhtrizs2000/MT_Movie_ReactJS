@@ -1,0 +1,63 @@
+.flip-card {
+    background-color: transparent;
+    width: 80%;
+    height: 300px;
+    perspective: 1000px;
+    margin: 5px auto;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.flip-card-front {
+    background-color: #bbb;
+    color: black;
+}
+
+.flip-card-back {
+    background-color: #2980b9;
+    color: white;
+    transform: rotateY(180deg);
+}
+
+/* modal custom */
+.ant-modal-content {
+    @apply text-center bg-gray-900;
+}
+.ant-modal-title {
+    @apply text-white text-2xl;
+}
+.ant-modal-header {
+    @apply bg-gray-900 border-0;
+}
+.ant-modal-header {
+    background: /* gradient can be an image */ linear-gradient(
+            to left,
+            rgba(92, 7, 52, 1) 0%,
+            rgba(134, 29, 84, 1) 12%,
+            rgb(255, 106, 183) 47%,
+            rgba(83, 0, 30, 1) 100%
+        )
+        left bottom #222 no-repeat;
+    background-size: 100% 5px;
+}

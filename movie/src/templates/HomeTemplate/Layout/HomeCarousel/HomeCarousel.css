@@ -1,0 +1,27 @@
+.slick-dots-bottom{
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 20px;
+}
+
+.ant-carousel .slick-dots li button{
+    height: 10px !important;
+    border-radius: 10px !important;
+    color: transparent !important;
+}
+
+.slick-slider .slick-dots li.slick-active button:before{
+    color: none !important;
+}
+
+.slick-slider .slick-dots li button:before{
+    color: transparent !important;
+}
+
+.ant-carousel .slick-dots li{
+    width: 50px !important;
+}
+
+.ant-carousel .slick-dots li.slick-active{
+    width: 70px !important;
+}

@@ -1,0 +1,31 @@
+.ant-tabs-tab-active {
+    background: /* gradient can be an image */ linear-gradient(
+            to left,
+            #6c3bff 0%,
+            #6c3bff 25%,
+            #a78bfa 50%,
+            #18ffff 100%
+        )
+        left bottom no-repeat;
+    background-size: 100% 5px;
+    transition: all 0.5s ease-in-out;
+}
+.ant-tabs-ink-bar {
+    display: none;
+}
+.ant-tabs-top > .ant-tabs-nav::before,
+.ant-tabs-bottom > .ant-tabs-nav::before,
+.ant-tabs-top > div > .ant-tabs-nav::before,
+.ant-tabs-bottom > div > .ant-tabs-nav::before {
+    display: none;
+}
+
+.ant-tabs-left > .ant-tabs-content-holder,
+.ant-tabs-left > div > .ant-tabs-content-holder {
+    border-left: 2px solid #6c3bff;
+}
+
+.ant-tabs > .ant-tabs-nav .ant-tabs-nav-wrap,
+.ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-wrap {
+    justify-content: center;
+}
