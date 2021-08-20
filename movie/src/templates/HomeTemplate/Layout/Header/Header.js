@@ -73,7 +73,7 @@ export default function Header(props) {
 
                     {renderLogin()}
 
-                    <Select defaultValue="en" style={{ width: 100 }} onChange={handleChange}>
+                    <Select className="opacity-50" defaultValue="en" style={{ width: 100 }} onChange={handleChange}>
                         <Option value="vi">
                             <div className="flex flex-row">
                                 <img className="mr-2" src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/emoji-one/5/flag-for-vietnam_1f1fb-1f1f3.png" alt="FLAG" width={30} />

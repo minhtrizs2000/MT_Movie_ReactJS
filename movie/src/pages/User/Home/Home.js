@@ -5,10 +5,10 @@ import HomeMenu from './HomeMenu/HomeMenu'
 import { useSelector, useDispatch } from 'react-redux';
 
 //Slick
-import MultipleRowsSlick from '../../components/ReactSlick/MultipleRowsSlick';
-import { layDanhSachPhimAction } from '../../redux/actions/QuanLyPhimAction';
-import HomeCarousel from '../../templates/HomeTemplate/Layout/HomeCarousel/HomeCarousel';
-import { layDanhSachHeThongRapAction } from '../../redux/actions/QuanLyRapAction';
+import MultipleRowsSlick from '../../../components/ReactSlick/MultipleRowsSlick';
+import { layDanhSachPhimAction } from '../../../redux/actions/QuanLyPhimAction';
+import HomeCarousel from '../../../templates/HomeTemplate/Layout/HomeCarousel/HomeCarousel';
+import { layDanhSachHeThongRapAction } from '../../../redux/actions/QuanLyRapAction';
 
 export default function Home(props) {
 

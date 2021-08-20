@@ -1,20 +1,20 @@
 import React, { Fragment, useEffect } from 'react'
-import Logo from '../../components/Logo/Logo'
+import Logo from '../../../components/Logo/Logo'
 import { CustomCard } from '@tsamantanis/react-glassmorphism';
 import { useDispatch, useSelector } from 'react-redux';
-import { datGheAction, datVeAction, layChiTietPhongVeAction } from '../../redux/actions/QanLyDatVeAction';
+import { datGheAction, datVeAction, layChiTietPhongVeAction } from '../../../redux/actions/QanLyDatVeAction';
 import './Checkout.css';
-import { CLEAR_DAT_VE, DAT_GHE, DAT_GHE_REAL_TIME } from '../../redux/actions/types/QuanLyDatVeType';
+import { CLEAR_DAT_VE, DAT_GHE, DAT_GHE_REAL_TIME } from '../../../redux/actions/types/QuanLyDatVeType';
 import _ from 'lodash';
-import { ThongTinDatVe } from '../../_core/models/ThongTinDatVe';
+import { ThongTinDatVe } from '../../../_core/models/ThongTinDatVe';
 import moment from 'moment';
 import 'moment/locale/vi';
 
 import { Tabs } from 'antd';
-import { layThongTinNguoiDungAction } from '../../redux/actions/QuanLyNguoiDungAction';
-import { history } from '../../App';
-import { connection } from '../../index';
-import { ACCESSTOKEN, USER_LOGIN } from '../../util/settings/config';
+import { layThongTinNguoiDungAction } from '../../../redux/actions/QuanLyNguoiDungAction';
+import { history } from '../../../App';
+import { connection } from '../../../index';
+import { ACCESSTOKEN, USER_LOGIN } from '../../../util/settings/config';
 const { TabPane } = Tabs;
 
 function Checkout(props) {

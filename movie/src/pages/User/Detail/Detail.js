@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { CustomCard } from '@tsamantanis/react-glassmorphism';
-import "../../assets/styles/circle.css";
+import "../../../assets/styles/circle.css";
 import { Tabs } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { layThongTinChiTietPhim } from '../../redux/actions/QuanLyRapAction';
+import { layThongTinChiTietPhim } from '../../../redux/actions/QuanLyRapAction';
 import moment from 'moment';
 import 'moment/locale/vi';
 import { Rate } from 'antd';
@@ -45,7 +45,7 @@ export default function Detail(props) {
                         <div className="col-span-4 duration-500 hover:opacity-100 opacity-70 flex flex-col justify-center items-center">
                             <p className="text-purple-400 text-3xl text-center">Đánh giá</p>
                             <p className="text-center  "> <Rate style={{ color: '#a78bfa' }} allowHalf disabled value={detailFilm.danhGia / 2} /></p>
-                            <div style={{ marginLeft: '15%' }} className={`c100 p${detailFilm.danhGia * 10} big purple`}>
+                            <div style={{ margin: '0' }} className={`c100 p${detailFilm.danhGia * 10} big purple`}>
                                 <span>{detailFilm.danhGia * 10}%</span>
                                 <div className="slice">
                                     <div className="bar"></div>
