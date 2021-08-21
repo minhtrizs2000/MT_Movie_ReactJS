@@ -22,6 +22,8 @@ import Films from './pages/Admin/Films/Films';
 import AddFilm from './pages/Admin/Films/AddFilm';
 import EditFilm from './pages/Admin/Films/EditFilm';
 import ShowTimes from './pages/Admin/Films/ShowTimes';
+import AddUser from './pages/Admin/Dashboard/AddUser';
+import EditUser from './pages/Admin/Dashboard/EditUser';
 const CheckoutTemplateLazy = lazy(()=>import('./templates/CheckoutTemplate/CheckoutTemplate'))
 
 export const history = createBrowserHistory();
@@ -46,6 +48,8 @@ function App() {
                 {/* ADMIN TEMPLATE */}
                 <AdminTemplate exact path="/admin" Component={Dashboard}/>
                 <AdminTemplate exact path="/admin/users" Component={Dashboard}/>
+                <AdminTemplate exact path="/admin/users/adduser" Component={AddUser}/>
+                <AdminTemplate exact path="/admin/users/edituser/:id" Component={EditUser}/>
                 <AdminTemplate exact path="/admin/films" Component={Films}/>
                 <AdminTemplate exact path="/admin/films/addfilm" Component={AddFilm}/>
                 <AdminTemplate exact path="/admin/films/editfilm/:id" Component={EditFilm}/>

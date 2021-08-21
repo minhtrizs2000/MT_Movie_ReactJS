@@ -17,8 +17,8 @@ const stateDefault = {
     ],
     arrFilmDangChieu: [],
     arrFilmSapChieu: [],
-    detailFilm:{},//homepage (thongtinphim + lich chieu)
-    thongTinPhim:{}//admin edit phim
+    detailFilm: {},//homepage (thongtinphim + lich chieu)
+    thongTinPhim: {}//admin edit phim
 }
 
 export const QuanLyPhimReducer = (state = stateDefault, action) => {
@@ -29,13 +29,13 @@ export const QuanLyPhimReducer = (state = stateDefault, action) => {
             state.arrFilmSapChieu = action.arrFilm.filter(film => film.sapChieu === true);
             return { ...state };
         }
-        case SET_CHI_TIET_PHIM:{
+        case SET_CHI_TIET_PHIM: {
             state.detailFilm = action.detailFilm;
-            return{...state};
+            return { ...state };
         }
-        case SET_THONG_TIN_PHIM:{
-            state.thongTinPhim=action.thongTinPhim;
-            return{...state};
+        case SET_THONG_TIN_PHIM: {
+            state.thongTinPhim = action.thongTinPhim;
+            return { ...state };
         }
         default: return { ...state };
     }

@@ -75,7 +75,7 @@ export default function AdminTemplate(props) {
                         <Menu.Item key="1" icon={<UserOutlined />}>
                             <NavLink to="/admin/users">Quản lý người dùng</NavLink>
                         </Menu.Item>
-                        <SubMenu key="sub1" icon={<FileOutlined />} title="Quản lý phim">
+                        <SubMenu key="2" icon={<FileOutlined />} title="Quản lý phim">
                             <Menu.Item key="10" icon={<FileOutlined />}>
                                 <NavLink to="/admin/films">Danh sách phim</NavLink>
                             </Menu.Item>
@@ -83,9 +83,6 @@ export default function AdminTemplate(props) {
                                 <NavLink to="/admin/films/addfilm">Thêm phim mới</NavLink>
                             </Menu.Item>
                         </SubMenu>
-                        <Menu.Item key="3" icon={<DesktopOutlined />}>
-                            <NavLink to="/admin/showtimes">Quản lý lịch chiếu</NavLink>
-                        </Menu.Item>
                     </Menu>
                 </Sider>
                 <Layout className="site-layout">
@@ -99,7 +96,7 @@ export default function AdminTemplate(props) {
                             <Component {...propsRoute} />
                         </div>
                     </Content>
-                    <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+                    <Footer style={{ textAlign: 'center' }}></Footer>
                 </Layout>
             </Layout>
         </Fragment>

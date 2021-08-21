@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, Table } from 'antd';
-import { Input, Space } from 'antd';
+import { Table } from 'antd';
+import { Input } from 'antd';
 import { EditOutlined, DeleteOutlined, DiffOutlined } from '@ant-design/icons';
 import { layDanhSachPhimAction, xoaPhimAction } from '../../../redux/actions/QuanLyPhimAction';
 import { NavLink } from 'react-router-dom';
@@ -84,7 +84,7 @@ export default function Films(props) {
             render: (text, film, index) => {
                 return <div className="flex justify-left items-center" key={index}>
                     <NavLink className="text-xl mx-5 px-4 pb-2 border-4 border-yellow-500 bg-yellow-500 text-white rounded-xl hover:text-yellow-500 hover:bg-white" to={`/admin/films/editfilm/${film.maPhim}`}><EditOutlined /></NavLink>
-                    <span className="text-2xl cursor-pointer mx-5 px-4 pb-2 border-4 border-red-500 bg-red-500 text-white rounded-xl hover:text-red-500 hover:bg-white" to="/admin/films/delete" onClick={() => {
+                    <span className="text-2xl cursor-pointer mx-5 px-4 pb-2 border-4 border-red-500 bg-red-500 text-white rounded-xl hover:text-red-500 hover:bg-white" onClick={() => {
                         //gọi action xoa
                         if (window.confirm('Bạn có chắc muốn xóa phim: "' + film.tenPhim + '"')) {
                             //gọi action
@@ -116,7 +116,7 @@ export default function Films(props) {
             <div className="w-full flex justify-end">
                 <button onClick={() => {
                     history.push("/admin/films/addfilm")
-                }} className="w-44 text-lg border-2 border-blue-500 hover:text-blue-500 hover:bg-white rounded-xl duration-200 my-5 px-5 py-2 bg-blue-500 text-white">Thêm phim mới</button>
+                }} className="w-44 text-lg border-4 border-blue-500 hover:text-blue-500 hover:bg-white rounded-xl duration-200 my-5 px-5 py-2 bg-blue-500 text-white">Thêm phim mới</button>
             </div>
             <Search
                 className="mb-5"

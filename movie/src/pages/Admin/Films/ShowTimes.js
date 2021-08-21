@@ -55,14 +55,14 @@ export default function ShowTimes(props) {
             setState({
                 ...state,
                 cumRapChieu:result.data.content
-            })
+            });
 
         }catch (error) {
             console.log('error',error.response?.data);
         }
     };
 
-    const handleChangeCumRap = async (value) => {
+    const handleChangeCumRap = (value) => {
         formik.setFieldValue('maRap',value);
     };
 
