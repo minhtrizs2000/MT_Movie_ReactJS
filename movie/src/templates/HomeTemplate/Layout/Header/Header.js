@@ -49,6 +49,10 @@ export default function Header(props, ref) {
         i18n.changeLanguage(value);
     };
 
+    window.addEventListener("beforeunload", ()=>{
+        i18n.changeLanguage('en');
+    });
+
     const renderLogin = () => {
         if (_.isEmpty(userLogin)) {
             return <Fragment>

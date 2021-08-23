@@ -62,7 +62,7 @@ function Checkout(props) {
                 arrGheKhachDangDat
             });
 
-            //cài đặt sự kiện thi reload trang
+            //cài đặt sự kiện khi reload trang
             window.addEventListener("beforeunload", clearGheReload);
 
             return () => {
@@ -142,23 +142,24 @@ function Checkout(props) {
                     <div className="">
                         {renderSeats()}
                     </div>
-                    <div className="w-2/3 mx-auto mt-10 flex justify-around items-center">
+                    <div className="w-2/3 mx-auto grid grid-cols-3">
                         <div>
                             <button className="ghe gheThuong">00</button>
                             <span className="text-white">{t('Regular seat')}</span>
                         </div>
                         <div>
-                            <button className="ghe gheVip">00</button>
-                            <span className="text-white">{t('VIP seat')}</span>
-                        </div>
-
-                        <div>
-                            <button className="ghe gheDaDat">X</button>
-                            <span className="text-white">{t('VIP seat')}</span>
-                        </div>
-                        <div>
                             <button className="ghe gheKhachDangDat">O</button>
                             <span className="text-white">{t('S.O is booking')}</span>
+                        </div>
+                        <div>
+                            <button className="ghe gheDaDat">X</button>
+                            <span className="text-white">{t('Booked seat')}</span>
+                        </div>
+                    </div>
+                    <div className="w-2/3 mx-auto grid grid-cols-3">
+                        <div>
+                            <button className="ghe gheVip">00</button>
+                            <span className="text-white">{t('VIP seat')}</span>
                         </div>
                         <div>
                             <button className="ghe gheMinhDat">O</button>
