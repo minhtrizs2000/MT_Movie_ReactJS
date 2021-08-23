@@ -2,3 +2,10 @@
 
 // surge 
 deploy web
+
+npm run build => đóng gói project 
+npm i -g surge => mỗi máy cài 1 lần
+lần đầu tiên nhập email và pass 
+nhập tên domain giữ lại đuôi surge.sh 
+để sd đc single page trên surge => tạo thêm file 200.html copy nội dung trang index.html 
+
