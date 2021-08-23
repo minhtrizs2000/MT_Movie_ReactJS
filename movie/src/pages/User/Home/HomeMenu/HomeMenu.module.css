@@ -1,0 +1,46 @@
+.hinhCumRapTabs{
+
+}
+.bgBody{
+    background: #161623;
+}
+/* .bgBody::before{
+    content:'';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(#f00,#f0f);
+    clip-path: circle(50% at right 80%);
+} */
+.circlePink::before{
+    content:'';
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(#f00,#f0f);
+    clip-path: circle(50% at 50% 100%);
+}
+.circlePink::after{
+    content:'';
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(#2196f3,#e91e63);
+    clip-path: circle(10% at 0% 20%);
+}
+
+@media only screen and (max-width: 1280px) {
+    .hinhCumRapTabs{
+        display: none;
+    }
+    .tenCumRapTabs{
+        margin: 0;
+        padding: 0;
+    }
+}

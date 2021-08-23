@@ -1,10 +1,11 @@
 import { history } from "../../App";
 import { quanLyPhimService } from "../../services/QuanLyPhimService"
 import { displayLoadingAction, hideLoadingAction } from "./LoadingAction";
-import { CHUYEN_TAB_1 } from "./types/QuanLyDatVeType";
-import { SET_DS_PHIM, SET_THONG_TIN_PHIM } from "./types/QuanLyPhimType";
+import { CHUYEN_TAB_1 } from "../types/QuanLyDatVeType";
+import { SET_DS_PHIM, SET_THONG_TIN_PHIM } from "../types/QuanLyPhimType";
 
-export const layDanhSachPhimAction = (tenPhim='') => {
+//action lấy tất cả danh sách phim hoặc lấy theo từ khóa tìm kiếm
+export const layDanhSachPhimAction = (tenPhim = '') => {
     return async (dispatch) => {
         try {
             dispatch(displayLoadingAction);
@@ -20,10 +21,11 @@ export const layDanhSachPhimAction = (tenPhim='') => {
             dispatch(hideLoadingAction);
             console.log('error', error);
             console.log('error', error.response?.data);
-        }
-    }
-}
+        };
+    };
+};
 
+//action thêm phim mới và upload hình của admin
 export const themPhimUpLoadHinhAction = (formData) => {
     return async (dispatch) => {
         try {
@@ -33,10 +35,11 @@ export const themPhimUpLoadHinhAction = (formData) => {
         } catch (error) {
             console.log('error', error);
             console.log('error', error.response?.data);
-        }
-    }
-}
+        };
+    };
+};
 
+//action lấy thông tin phim để cập nhật bên admin
 export const layThongTinPhimAction = (maPhim) => {
     return async (dispatch) => {
         try {
@@ -48,27 +51,29 @@ export const layThongTinPhimAction = (maPhim) => {
         } catch (error) {
             console.log('error', error);
             console.log('error', error.response?.data);
-        }
-    }
-}
+        };
+    };
+};
 
+//action cập nhật phim
 export const capNhatPhimUploadAction = (formData) => {
-    return async (dispatch)=>{
-        try{
+    return async (dispatch) => {
+        try {
             let result = await quanLyPhimService.capNhatPhimUpload(formData);
             alert('Cập nhật phim thành công!');
             history.push('/admin/films');
         } catch (error) {
             console.log('error', error);
             console.log('error', error.response?.data);
-        }
-    }
-}
+            alert(error.response?.data.content);
+        };
+    };
+};
 
-
+//action xóa phim
 export const xoaPhimAction = (maPhim) => {
-    return async (dispatch)=>{
-        try{
+    return async (dispatch) => {
+        try {
             let result = await quanLyPhimService.xoaPhim(maPhim);
             alert('Xóa phim thành công!');
             dispatch(layDanhSachPhimAction());
@@ -76,6 +81,6 @@ export const xoaPhimAction = (maPhim) => {
         } catch (error) {
             console.log('error', error);
             console.log('error', error.response?.data);
-        }
-    }
-}
+        };
+    };
+};

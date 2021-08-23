@@ -1,5 +1,5 @@
-import { SET_DS_PHIM, SET_THONG_TIN_PHIM } from "../actions/types/QuanLyPhimType";
-import { SET_CHI_TIET_PHIM } from "../actions/types/QuanLyRapType";
+import { SET_DS_PHIM, SET_THONG_TIN_PHIM } from "../types/QuanLyPhimType";
+import { SET_CHI_TIET_PHIM } from "../types/QuanLyRapType";
 
 const stateDefault = {
     arrFilm: [
@@ -19,7 +19,7 @@ const stateDefault = {
     arrFilmSapChieu: [],
     detailFilm: {},//homepage (thongtinphim + lich chieu)
     thongTinPhim: {}//admin edit phim
-}
+};
 
 export const QuanLyPhimReducer = (state = stateDefault, action) => {
     switch (action.type) {
@@ -38,5 +38,5 @@ export const QuanLyPhimReducer = (state = stateDefault, action) => {
             return { ...state };
         }
         default: return { ...state };
-    }
-}
+    };
+};

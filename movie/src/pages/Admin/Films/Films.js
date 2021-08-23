@@ -12,17 +12,20 @@ const { Search } = Input;
 
 
 export default function Films(props) {
-
-
     const { arrFilm } = useSelector(state => state.QuanLyPhimReducer);
-
     const dispatch = useDispatch();
 
+    //chạy mặc định sau khi render xong giao diện
     useEffect(() => {
+        //dispatch action để lấy danh sách phim load lên table quản lý
         dispatch(layDanhSachPhimAction());
     }, []);
-    console.log(arrFilm);
 
+    //khai báo các cột sd trong component antd
+    //title: tên hiển thị
+    //dataIndex: key trong mảng dữ liệu
+    //render: hàm render xử lý giao diện
+    //sort: hàm sắp xếp
     const columns = [
         {
             title: 'Mã phim',
@@ -99,12 +102,16 @@ export default function Films(props) {
         },
     ];
 
+    //khai báo mảng data sẽ sd trên table antd
     const data = arrFilm;
 
+    //hàm xử lý sk change của table antd
     function onChange(pagination, filters, sorter, extra) {
         console.log('params', pagination, filters, sorter, extra);
     };
 
+    //hàm xử lý sk search của component Search của antd
+    //truyền vào giá trị muốn tìm kiếm hàm dispatch lên gọi api load danh sách phim theo từ khóa
     const onSearch = value => {
         //gọi api lấy danh sách phim
         dispatch(layDanhSachPhimAction(value));

@@ -35,7 +35,7 @@ function SamplePrevArrow(props) {
 }
 
 export default function MultipleRowSlick(props) {
-    
+
     //Đa ngôn ngữ
     const { t, i18n } = useTranslation();
 
@@ -43,11 +43,19 @@ export default function MultipleRowSlick(props) {
 
     const renderFilms = (arrFilm) => {
         return arrFilm?.slice(0, 16).map((film, index) => {
-            return <div className="mt-2" key={index}  >
+            return <div key={index}  >
                 <Film_FlipCard film={film} />
             </div>
         })
     };
+
+    const slidesPerRow = () => {
+        if (window.innerWidth <= 1400) {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
 
     const settings = {
         className: "center variable-width",
@@ -57,19 +65,22 @@ export default function MultipleRowSlick(props) {
         slidesToShow: 2,
         speed: 500,
         rows: 2,
-        slidesPerRow: 2,
+        slidesPerRow: slidesPerRow(),
         variableWidth: true,
         nextArrow: <SampleNextArrow />,
         prevArrow: <SamplePrevArrow />,
+
     };
 
     return (
-        <div className="container">
-            <Tabs defaultActiveKey="1" style={{overflow:'unset'}}>
+        <div>
+            <Tabs defaultActiveKey="1" style={{ overflow: 'unset' }}>
                 <TabPane tab={<button className={`w-52 h-14 mx-10 my-1 rounded-md bg-gradient-to-r from-blue-400 to-pink-500 text-lg text-black font-bold`}>{t('Now Showing')}</button>} key="1">
-                    <Slider {...settings}>
-                        {renderFilms(props.arrFilmDangChieu)}
-                    </Slider>
+                    <div className="flex justify-center">
+                        <Slider style={{ width: '90%', overflow: 'unset' }} {...settings}>
+                            {renderFilms(props.arrFilmDangChieu)}
+                        </Slider>
+                    </div>
                 </TabPane>
                 <TabPane tab={<button className={`w-52 h-14 mx-10 my-1 rounded-md bg-gradient-to-r from-blue-400 to-pink-500 text-lg text-black font-bold`}>{t('Coming soon')}</button>} key="2">
                     <Slider {...settings}>

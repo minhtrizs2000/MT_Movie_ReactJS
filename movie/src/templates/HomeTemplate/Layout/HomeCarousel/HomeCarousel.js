@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 import { Carousel } from 'antd';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getCarouselAction } from '../../../../redux/actions/CarouselAction';
 import './HomeCarousel.css';
 
 export default function HomeCarousel(props) {
 
-    const {arrBanner}  = useSelector(state => state.CarouselReducer);
+    const { arrBanner } = useSelector(state => state.CarouselReducer);
 
     const dispatch = useDispatch();
 
-    useEffect(()=>{
+    useEffect(() => {
         try {
             //truyền vào:
             //  1 là action = {type,data}
@@ -18,9 +18,9 @@ export default function HomeCarousel(props) {
             dispatch(getCarouselAction());
 
         } catch (error) {
-            console.log("error: ",error);
+            console.log("error: ", error);
         }
-    },[])
+    }, []);
 
 
     const contentStyle = {
@@ -32,19 +32,18 @@ export default function HomeCarousel(props) {
     };
 
     const renderBanner = () => {
-        return arrBanner.map((item,index)=>{
+        return arrBanner.map((item, index) => {
             return <div key={index}>
-            <div style={{...contentStyle}}>
-                <img src={item.hinhAnh} className="h-full w-full" alt="carousel_Img"/>
+                <div style={{ ...contentStyle }}>
+                    <img src={item.hinhAnh} className="h-full w-full" alt="carousel_Img" />
+                </div>
             </div>
-        </div>
-        })
-    }
-
+        });
+    };
 
     return (
         <Carousel effect="fade" >
             {renderBanner()}
         </Carousel>
-    )
-}
+    );
+};

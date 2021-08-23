@@ -2,35 +2,41 @@ import React, { Fragment, useEffect } from 'react'
 import Logo from '../../../components/Logo/Logo'
 import { CustomCard } from '@tsamantanis/react-glassmorphism';
 import { useDispatch, useSelector } from 'react-redux';
-import { datGheAction, datVeAction, layChiTietPhongVeAction } from '../../../redux/actions/QanLyDatVeAction';
+import { datGheAction, datVeAction, layChiTietPhongVeAction } from '../../../redux/actions/QuanLyDatVeAction';
 import './Checkout.css';
-import { CLEAR_DAT_VE, DAT_GHE, DAT_GHE_REAL_TIME } from '../../../redux/actions/types/QuanLyDatVeType';
+import { CLEAR_DAT_VE, DAT_GHE, DAT_GHE_REAL_TIME } from '../../../redux/types/QuanLyDatVeType';
 import _ from 'lodash';
 import { ThongTinDatVe } from '../../../_core/models/ThongTinDatVe';
 import moment from 'moment';
 import 'moment/locale/vi';
-
-import { Tabs } from 'antd';
 import { layThongTinNguoiDungAction } from '../../../redux/actions/QuanLyNguoiDungAction';
 import { history } from '../../../App';
 import { connection } from '../../../index';
 import { ACCESSTOKEN, USER_LOGIN } from '../../../util/settings/config';
+import { Tabs } from 'antd';
+//hook dịch đa ngôn ngữ
+import { useTranslation } from 'react-i18next';
+
 const { TabPane } = Tabs;
 
 function Checkout(props) {
+    //khai báo biến để sd đa ngôn ngữ
+    let { t, i18n } = useTranslation();
 
     const dispatch = useDispatch();
     const { userLogin } = useSelector(state => state.QuanLyNguoiDungReducer);
     const { chiTietPhongVe, danhSachGheDangDat, danhSachGheKhachDangDat } = useSelector(state => state.QuanLyDatVeReducer);
     const { thongTinPhim, danhSachGhe } = chiTietPhongVe;
 
+
+    //chạy mặc định sau khi render xong giao diện
     useEffect(() => {
-        const action = layChiTietPhongVeAction(props.match.params.id);
-        dispatch(action);
+        //dispatch action lên redux lấy chi tiết phòng vé render ghế ra giao diện
+        dispatch(layChiTietPhongVeAction(props.match.params.id));
 
         //tự load lại ds ghế khi người khác thực hiện việc đặt vé thành công
         connection.on('datVeThanhCong', () => {
-            dispatch(action);
+            dispatch(layChiTietPhongVeAction(props.match.params.id));
         });
 
         //vừa vào trang load tất cả ghế của các người khác đang thực hiện đặt
@@ -62,44 +68,58 @@ function Checkout(props) {
             return () => {
                 clearGheReload();
                 window.removeEventListener("beforeunload", clearGheReload);
-            }
-
-        })
+            };
+        });
     }, []);
 
+    //hàm tự động clear ghế khi reload page
     const clearGheReload = function (event) {
         connection.invoke('huyDat', userLogin.taiKhoan, props.match.params.id);
-
     };
 
+    //hàm render giao diện ghế ngồi
     const renderSeats = () => {
         return danhSachGhe?.map((ghe, index) => {
 
+            //tạo các class ứng với các css cho các loại ghế
             let classGheVip = ghe.loaiGhe === 'Vip' ? 'gheVip' : '';
             let classGheDaDat = ghe.daDat === true ? 'gheDaDat' : '';
             let classGheDangDat = '';
             let classGheMinhDat = '';
             let classGheKhachDangDat = '';
 
+            //xét ghế nào của mình, add css
             if (userLogin.taiKhoan === ghe.taiKhoanNguoiDat) {
                 classGheMinhDat = 'gheMinhDat';
-            }
+            };
 
+            //xét ghế nào mình đang click chọn, add css
             let indexGheDangDat = danhSachGheDangDat?.findIndex(gheDD => gheDD.maGhe === ghe.maGhe);
             if (indexGheDangDat !== -1) {
                 classGheDangDat = 'gheDangDat';
             }
 
+            //xét ghế nào khách đang click chọn, add css
             let indexGheKhachDangDat = danhSachGheKhachDangDat?.findIndex(gheKDD => gheKDD.maGhe === ghe.maGhe);
             if (indexGheKhachDangDat !== -1) {
                 classGheKhachDangDat = 'gheKhachDangDat';
             }
 
             return <Fragment key={index}>
+                {/* 
+                    _xét ghế đó đã đặt hoặc ghế người khác đang chọn thì disabled
+                    _click vào thì dispatch action datGhe thêm ghế vào danh sách ghế mình đang đặt
+                */}
                 <button disabled={ghe.daDat || classGheKhachDangDat !== ''} onClick={() => {
                     const action = datGheAction(ghe, props.match.params.id)
                     dispatch(action);
                 }} className={`ghe ${classGheVip} ${classGheDaDat} ${classGheDangDat} ${classGheMinhDat} ${classGheKhachDangDat}`}>
+                    {/* 
+                        _xét ghế đã đặt hay chưa: 
+                            +nếu rồi thì xét có phải của mình k, phải thì hiển thị 'O', không thì hiển thin 'X'
+                            +nếu chưa thì xét có ai đang đặt ghế đó không nếu có thì hiển thị 'O', không thì hiển thị stt ghế
+                            +các ghế đều được add class css tương ứng
+                    */}
                     {ghe.daDat ? userLogin.taiKhoan === ghe.taiKhoanNguoiDat ? 'O' : 'X' : classGheKhachDangDat !== '' ? 'O' : ghe.stt}
                 </button>
                 {(index + 1) % 16 === 0 ? <br /> : ''}
@@ -115,43 +135,45 @@ function Checkout(props) {
                         <img alt="img" src="https://tix.vn/app/assets/img/icons/screen.png" style={{ width: '80%', margin: '5px auto', height: '100px' }} />
                     </div>
                     <button onClick={() => {
+                        // clear danh sách ghế khi thoát ra hoặc reload page
                         clearGheReload();
                         history.push('/');
-                    }} className="absolute bg-purple-500 top-10 left-0 text-base text-white rounded-full p-2 hover:bg-purple-900 duration-500">Back to home</button>
+                    }} className="absolute bg-purple-500 top-10 left-0 text-base text-white rounded-full p-2 hover:bg-purple-900 duration-500">{t('BACK TO HOME')}</button>
                     <div className="">
                         {renderSeats()}
                     </div>
                     <div className="w-2/3 mx-auto mt-10 flex justify-around items-center">
                         <div>
                             <button className="ghe gheThuong">00</button>
-                            <span className="text-white">Regular seat</span>
+                            <span className="text-white">{t('Regular seat')}</span>
                         </div>
                         <div>
                             <button className="ghe gheVip">00</button>
-                            <span className="text-white">VIP seat</span>
+                            <span className="text-white">{t('VIP seat')}</span>
                         </div>
 
                         <div>
                             <button className="ghe gheDaDat">X</button>
-                            <span className="text-white">Booked seat</span>
+                            <span className="text-white">{t('VIP seat')}</span>
                         </div>
                         <div>
                             <button className="ghe gheKhachDangDat">O</button>
-                            <span className="text-white">S.O is booking</span>
+                            <span className="text-white">{t('S.O is booking')}</span>
                         </div>
                         <div>
                             <button className="ghe gheMinhDat">O</button>
-                            <span className="text-white">Your booked seat</span>
+                            <span className="text-white">{t('Your booked seat')}</span>
                         </div>
                         <div>
                             <button className="ghe gheDangDat">00</button>
-                            <span className="text-white">Your booking seat</span>
+                            <span className="text-white">{t('Your booking seat')}</span>
                         </div>
                     </div>
                 </div>
                 <div className="col-span-3 z-20">
                     <div className="flex justify-center">
                         <Logo onClick={() => {
+                            // clear danh sách ghế khi thoát ra hoặc reload page
                             clearGheReload();
                             history.push('/');
                         }} />
@@ -164,7 +186,7 @@ function Checkout(props) {
                         <p className="text-3xl pt-5">{thongTinPhim.tenPhim}</p>
                         <div className="grid grid-cols-3">
                             <div className="col-span-1">
-                                <p className="text-lg">Location:</p>
+                                <p className="text-lg">{t('Location')}:</p>
                             </div>
                             <div className="col-span-2">
                                 <p className="text-lg">{thongTinPhim.diaChi} - {thongTinPhim.tenRap}</p>
@@ -172,7 +194,7 @@ function Checkout(props) {
                         </div>
                         <div className="grid grid-cols-3">
                             <div className="col-span-1">
-                                <p className="text-lg">Date:</p>
+                                <p className="text-lg">{t('Date')}:</p>
                             </div>
                             <div className="col-span-2">
                                 <p className="text-lg">{thongTinPhim.ngayChieu} - {thongTinPhim.gioChieu}</p>
@@ -181,10 +203,11 @@ function Checkout(props) {
                         <hr />
                         <div className="grid grid-cols-3 py-5">
                             <div className="col-span-1">
-                                <p className="text-lg my-2">SEATS: </p>
+                                <p className="text-lg my-2">{t('SEATS')}: </p>
                             </div>
                             <div className="col-span-2">
                                 {
+                                    // dùng lodash sắp xếp ds ghế đang đặt theo stt
                                     _.sortBy(danhSachGheDangDat, ['stt']).map((gheDD, index) => {
                                         return <div key={index} className="text-xl my-2 text-right flex justify-between" style={{ color: '#18ffff' }}>
                                             <span>{gheDD.stt}</span>
@@ -196,9 +219,9 @@ function Checkout(props) {
                         </div>
                         <hr />
                         <div className="mt-5 text-lg">
-                            <i>EMAIL</i>
+                            <i>{t('EMAIL')}</i>
                             <p className="ml-5">{userLogin.email}</p>
-                            <i>PHONE</i>
+                            <i>{t('PHONE')}</i>
                             <p className="ml-5">{userLogin.soDT ? userLogin.soDT : 'xxxxxxxxxx'}</p>
                         </div>
                         <div className="flex justify-center items-center mt-10">
@@ -208,8 +231,7 @@ function Checkout(props) {
                                 thongTinDatVe.danhSachVe = danhSachGheDangDat;
 
                                 dispatch(datVeAction(thongTinDatVe));
-
-                            }} className="bg-purple-500 duration-500 px-10 py-5 rounded-full shadow-inner transform hover:scale-110 hover:bg-purple-700">CHECK OUT</button>
+                            }} className="bg-purple-500 duration-500 px-10 py-5 rounded-full shadow-inner transform hover:scale-110 hover:bg-purple-700">{t('CHECK OUT')}</button>
                         </div>
                     </CustomCard>
 
@@ -220,6 +242,8 @@ function Checkout(props) {
 }
 
 function KetQuaDatVe(props) {
+    //khai báo biến để sd đa ngôn ngữ
+    let { t, i18n } = useTranslation();
     const dispatch = useDispatch();
 
     const { thongTinNguoiDung } = useSelector(state => state.QuanLyNguoiDungReducer);
@@ -243,7 +267,7 @@ function KetQuaDatVe(props) {
                     <div className="grid grid-cols-12">
                         <div className="col-span-8">
                             <h2 className="text-2xl font-medium title-font mb-2" style={{ color: '#18ffff' }}>{ticket.tenPhim}</h2>
-                            <p className="leading-relaxed text-base text-white">{moment(ticket.ngayDat).format('D-MM-YYY, h:mm a')}</p>
+                            <p className="leading-relaxed text-base text-white">{moment(ticket.ngayDat).format('D-MM-YYYY, h:mm a')}</p>
                         </div>
                         <div className="col-span-4  text-right">
                             <h1 className="text-2xl font-medium title-font mb-2" style={{ color: '#18ffff' }}>{ticket.danhSachGhe[0]?.tenCumRap}</h1>
@@ -269,8 +293,8 @@ function KetQuaDatVe(props) {
         <section className="text-gray-600 body-font">
             <div className="container px-5 py-24 mx-auto">
                 <div className="flex flex-wrap w-full mb-20 flex-col items-center text-center">
-                    <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2" style={{ color: '#18ffff' }}>YOUR BOOKING HISTORY</h1>
-                    <p className="lg:w-1/2 w-full leading-relaxed text-gray-500 text-lg" style={{ borderBottom: '2px solid #18ffff' }}>Please check the location and time so you don't miss the movie. <br />Have a good time watching the movie !</p>
+                    <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2" style={{ color: '#18ffff' }}>{t('YOUR BOOKING HISTORY')}</h1>
+                    <p className="lg:w-1/2 w-full leading-relaxed text-gray-500 text-lg" style={{ borderBottom: '2px solid #18ffff' }}>{t('booking history message')}</p>
                 </div>
                 <div className="flex flex-wrap -m-4">
 
@@ -279,7 +303,7 @@ function KetQuaDatVe(props) {
                 </div>
                 <button onClick={() => {
                     history.push("/");
-                }} className="flex mx-auto mt-16 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">BACK TO HOME</button>
+                }} className="flex mx-auto mt-16 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">{t('BACK TO HOME')}</button>
             </div>
         </section>
 
@@ -287,6 +311,10 @@ function KetQuaDatVe(props) {
 }
 
 export default function CheckoutTab(props) {
+
+    //khai báo biến để sd đa ngôn ngữ
+    let { t, i18n } = useTranslation();
+
     const dispatch = useDispatch();
 
     const { tabActive, danhSachGheDangDat } = useSelector(state => state.QuanLyDatVeReducer);
@@ -302,15 +330,14 @@ export default function CheckoutTab(props) {
             <button
                 onClick={() => {
                     history.push('/profile');
-                }} className="duration-500 text-white mr-32 text-2xl hover:text-purple-500 group">
-                Hello! {userLogin.taiKhoan}
-                <div className="border-2 border-dashed border-white group-hover:border-purple-500 rounded-full inline-block ml-4 w-10 h-10">{userLogin.taiKhoan.substr(0, 1)}</div>
-            </button> <button onClick={()=>{
+                }} className="duration-500 text-white mr-10 text-xl hover:text-purple-500 group">
+                {t('Hello')}! {userLogin.taiKhoan}
+            </button> <button onClick={() => {
                 localStorage.removeItem(USER_LOGIN);
                 localStorage.removeItem(ACCESSTOKEN);
                 history.push('/');
                 window.location.reload();
-            }} className="duration-500 text-white mr-32 text-2xl hover:text-purple-500 ">Logout</button>
+            }} className="duration-500 text-white mr-10 text-xl hover:text-purple-500 ">{t('Logout')}</button>
         </Fragment> : ''}
     </Fragment>;
 
@@ -318,10 +345,10 @@ export default function CheckoutTab(props) {
 
     return <div className="bg-black  min-h-screen">
         <Tabs tabBarExtraContent={operations} defaultActiveKey='1' activeKey={tabActive}>
-            <TabPane tab={<span className="text-4xl text-purple-500 mx-10">01.SELECT SEATS &amp; PAYMENT</span>} key="1">
+            <TabPane tab={<span className="text-4xl text-purple-500 mx-10">01.{t('SELECT SEATS')} &amp; {t('PAYMENT')}</span>} key="1">
                 <Checkout {...props} />
             </TabPane>
-            <TabPane tab={<span className="text-4xl text-purple-500 mx-10">02.BOOKING RESULT</span>} key="2">
+            <TabPane tab={<span className="text-4xl text-purple-500 mx-10">02.{t('BOOKING RESULT')}</span>} key="2">
                 <KetQuaDatVe {...props} />
             </TabPane>
         </Tabs>

@@ -1,4 +1,4 @@
-import { CHUYEN_TAB_1, CHUYEN_TAB_2, CLEAR_DAT_VE, DAT_GHE, DAT_GHE_REAL_TIME, SET_CHI_TIET_PHONG_VE } from "../actions/types/QuanLyDatVeType";
+import { CHUYEN_TAB_1, CHUYEN_TAB_2, CLEAR_DAT_VE, DAT_GHE, DAT_GHE_REAL_TIME, SET_CHI_TIET_PHONG_VE } from "../types/QuanLyDatVeType";
 
 const stateDefault = {
     chiTietPhongVe: {
@@ -29,22 +29,22 @@ export const QuanLyDatVeReducer = (state = stateDefault, action) => {
 
             return { ...state, danhSachGheDangDat: danhSachGheCapNhat };
         }
-        case CLEAR_DAT_VE:{
+        case CLEAR_DAT_VE: {
             state.danhSachGheDangDat = [];
             return { ...state };
         }
-        case CHUYEN_TAB_2:{
+        case CHUYEN_TAB_2: {
             state.tabActive = '2';
             return { ...state };
         }
-        case CHUYEN_TAB_1:{
+        case CHUYEN_TAB_1: {
             state.tabActive = '1';
             return { ...state };
         }
-        case DAT_GHE_REAL_TIME:{
+        case DAT_GHE_REAL_TIME: {
             state.danhSachGheKhachDangDat = action.arrGheKhachDangDat;
             return { ...state };
         }
         default: return { ...state };
-    }
-}
+    };
+};

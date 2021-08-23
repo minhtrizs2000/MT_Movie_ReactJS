@@ -1,12 +1,14 @@
 .slick-prev:before, .slick-next:before {
     color: gray !important;
-    font-size: 4rem !important;
+    font-size: 3rem !important;
 }
 .slick-next{
-    right: -60px !important;
+    top: 40% !important;
+    right: -40px !important;
 }
 .slick-prev{
-    left: -100px !important;
+    top: 40% !important;
+    left: -80px !important;
 }
 
 .width-item {

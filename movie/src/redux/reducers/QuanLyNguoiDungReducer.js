@@ -1,15 +1,15 @@
 import { ACCESSTOKEN, USER_LOGIN } from "../../util/settings/config";
-import { DANG_NHAP, SET_DANH_SACH_LOAI_NGUOI_DUNG, SET_DANH_SACH_NGUOI_DUNG, SET_NGUOI_DUNG_CAP_NHAT, SET_THONG_TIN_NGUOI_DUNG, SET_THONG_TIN_NGUOI_DUNG_UPDATE } from "../actions/types/QuanLyNguoiDungType";
+import { DANG_NHAP, SET_DANH_SACH_LOAI_NGUOI_DUNG, SET_DANH_SACH_NGUOI_DUNG, SET_NGUOI_DUNG_CAP_NHAT, SET_THONG_TIN_NGUOI_DUNG } from "../types/QuanLyNguoiDungType";
 
 let user = {};
-if(localStorage.getItem(USER_LOGIN)){
+if (localStorage.getItem(USER_LOGIN)) {
     user = JSON.parse(localStorage.getItem(USER_LOGIN));
 }
 
 const stateDefault = {
     userLogin: user,
     thongTinNguoiDung: {},
-    thongTinNguoiDungUpdate:{},
+    thongTinNguoiDungUpdate: {},
     danhSachNguoiDung: [],
     danhSachLoaiNguoiDung: [],
 };
@@ -26,7 +26,7 @@ export const QuanLyNguoiDungReducer = (state = stateDefault, action) => {
             state.thongTinNguoiDung = action.thongTinNguoiDung;
             return { ...state };
         }
-        case SET_DANH_SACH_NGUOI_DUNG:{
+        case SET_DANH_SACH_NGUOI_DUNG: {
             state.danhSachNguoiDung = action.danhSachNguoiDung;
             return { ...state };
         }
@@ -34,7 +34,7 @@ export const QuanLyNguoiDungReducer = (state = stateDefault, action) => {
             state.danhSachLoaiNguoiDung = action.danhSachLoaiNguoiDung;
             return { ...state };
         }
-        case SET_NGUOI_DUNG_CAP_NHAT:{
+        case SET_NGUOI_DUNG_CAP_NHAT: {
             state.thongTinNguoiDungUpdate = action.thongTinNguoiDungUpdate;
             return { ...state };
         }

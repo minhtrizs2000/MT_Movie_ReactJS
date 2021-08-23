@@ -1,12 +1,8 @@
 .customLink{
-    @apply transition duration-700 ease-in-out flex items-center -mb-0.5 text-xl px-5 text-purple-400;
+    @apply transition duration-700 ease-in-out flex items-center -mb-0.5 text-xl px-5 text-purple-400 cursor-pointer border-b-2 border-opacity-0 transform hover:scale-125;
 }
 
 .customLink:hover{
     color: #18ffff;
     border-bottom: #18ffff solid 2px;
-}
-
-.customActiveLink{
-    @apply border-white border-b-2;
 }

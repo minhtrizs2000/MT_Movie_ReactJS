@@ -1,8 +1,8 @@
 import axios from "axios"
 import { ACCESSTOKEN, DOMAIN, DOMAIN_BANNER } from "../util/settings/config"
 
-export class BaseService{
-    constructor(){
+export class BaseService {
+    constructor() {
 
     };
 
@@ -11,7 +11,7 @@ export class BaseService{
             url: `${DOMAIN_BANNER}${url}`,
             method: 'GET',
             headers: {
-                'Authorization' : `Bearer ${localStorage.getItem(ACCESSTOKEN)}`
+                'Authorization': `Bearer ${localStorage.getItem(ACCESSTOKEN)}`
             }
         });
         return promise;
@@ -22,7 +22,7 @@ export class BaseService{
             url: `${DOMAIN}${url}`,
             method: 'GET',
             headers: {
-                'Authorization' : `Bearer ${localStorage.getItem(ACCESSTOKEN)}`
+                'Authorization': `Bearer ${localStorage.getItem(ACCESSTOKEN)}`
             }
         });
         return promise;
@@ -34,7 +34,7 @@ export class BaseService{
             method: 'POST',
             data: data,
             headers: {
-                'Authorization' : `Bearer ${localStorage.getItem(ACCESSTOKEN)}`
+                'Authorization': `Bearer ${localStorage.getItem(ACCESSTOKEN)}`
             }
         });
         return promise;
@@ -46,7 +46,7 @@ export class BaseService{
             method: 'PUT',
             data: data,
             headers: {
-                'Authorization' : `Bearer ${localStorage.getItem(ACCESSTOKEN)}`
+                'Authorization': `Bearer ${localStorage.getItem(ACCESSTOKEN)}`
             }
         });
         return promise;
@@ -57,9 +57,9 @@ export class BaseService{
             url: `${DOMAIN}${url}`,
             method: 'DELETE',
             headers: {
-                'Authorization' : `Bearer ${localStorage.getItem(ACCESSTOKEN)}`
+                'Authorization': `Bearer ${localStorage.getItem(ACCESSTOKEN)}`
             }
         });
         return promise;
     };
-}
+};

@@ -36,3 +36,16 @@ npm i formil yup
 
 //signalr xu ly realtime data
 npm i @aspnet/signalr
+
+//sd surge để deploy web
+npm i surge
+
+//custom thẻ card, hiệu ứng hover
+npm i react-use
+npm i react-spring 
+npm i react-vanilla-tilt 
+
+
+
+//muốn custom component viết trực tiếp css trên file js thì cài styled component
+npm i styled-component

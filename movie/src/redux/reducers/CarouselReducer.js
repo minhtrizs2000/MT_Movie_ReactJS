@@ -1,4 +1,4 @@
-import { SET_CAROUSEL } from "../actions/types/CarouselType";
+import { SET_CAROUSEL } from "../types/CarouselType";
 
 const stateDefault = {
     arrBanner: [
@@ -6,17 +6,16 @@ const stateDefault = {
             "maBanner": 1,
             "maPhim": 1282,
             "hinhAnh": "http://movieapi.cyberlearn.vn/hinhanh/ban-tay-diet-quy.png"
-        }
-    ]
+        },
+    ],
 }
 
 export const CarouselReducer = (state = stateDefault, action) => {
     switch (action.type) {
-        case SET_CAROUSEL:{
-            state.arrBanner=action.arrBanner;
-            return {...state};
+        case SET_CAROUSEL: {
+            state.arrBanner = action.arrBanner;
+            return { ...state };
         }
-
         default: return { ...state }
-    }
-}
+    };
+};

@@ -11,13 +11,19 @@ const { Search } = Input;
 
 export default function Dashboard(props) {
     const { danhSachNguoiDung } = useSelector(state => state.QuanLyNguoiDungReducer);
-
     const dispatch = useDispatch();
 
+    //chạy mặc định sau khi render xong giao diện
     useEffect(() => {
+        //dispatch action để lấy danh sách người dùng load lên table quản lý
         dispatch(layDanhSachNguoiDungAction());
     }, []);
 
+    //khai báo các cột sd trong component antd
+    //title: tên hiển thị
+    //dataIndex: key trong mảng dữ liệu
+    //render: hàm render xử lý giao diện
+    //có thể sort theo colum
     const columns = [
         {
             title: 'Tài khoản',
@@ -82,12 +88,16 @@ export default function Dashboard(props) {
         },
     ];
 
+    //khai báo mảng data sẽ sd trên table antd
     const data = danhSachNguoiDung;
 
+    //hàm xử lý sk change của table antd
     function onChange(pagination, filters, sorter, extra) {
         console.log('params', pagination, filters, sorter, extra);
     };
 
+    //hàm xử lý sk search của component Search của antd
+    //truyền vào giá trị muốn tìm kiếm hàm dispatch lên gọi api load danh sách người dùng theo từ khóa
     const onSearch = value => {
         dispatch(layDanhSachNguoiDungAction(value));
     };

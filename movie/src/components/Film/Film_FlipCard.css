@@ -1,8 +1,8 @@
 .flip-card {
     background-color: transparent;
     width: 80%;
-    height: 300px;
-    perspective: 1000px;
+    height: 200px;
+    perspective: 500px;
     margin: 5px auto;
 }
 
@@ -60,4 +60,59 @@
         )
         left bottom #222 no-repeat;
     background-size: 100% 5px;
+}
+
+
+/* glass card */
+.filmContainer{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    flex-wrap: wrap;
+    z-index: 1;
+    width: 80%;
+}
+
+.filmContainer .filmCard{
+    position: relative;
+    height: 230px;
+    margin: 30px 10px !important;
+    padding: 0 !important;
+    box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.5) !important;
+    border-top:1px solid rgba(255, 255, 255, 0.5);
+    border-left:1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px !important;
+    background: rgba(255, 255, 255, 0.5);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.filmContainer .filmCard .filmContent{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    border-top:1px solid rgba(255, 255, 255, 0.5);
+    border-left:1px solid rgba(255, 255, 255, 0.5);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    opacity: 0;
+    transform:  translateY(100px);
+    transition: all 0.5s;
+}
+
+.filmContainer .filmCard:hover .filmContent{
+    opacity: 0;
+    transform:  translateY(0px);
+    opacity: 1;
 }

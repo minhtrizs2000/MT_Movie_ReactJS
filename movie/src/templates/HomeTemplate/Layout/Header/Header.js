@@ -11,12 +11,33 @@ import { useTranslation } from 'react-i18next';
 import { ACCESSTOKEN, USER_LOGIN } from '../../../../util/settings/config';
 import { history } from '../../../../App';
 
-
-
-
 const { Option } = Select;
 
-export default function Header(props) {
+export default function Header(props, ref) {
+
+
+    const gotoMultiRowSection = () => {
+        if (props.multiRowSection.current) {
+            window.scrollTo({
+                top: props.multiRowSection.current.offsetTop - 90,
+                behavior: 'smooth'
+            });
+        } else {
+            history.push('/');
+        };
+    };
+
+    const gotoShowTimeSection = () => {
+        if (props.multiRowSection.current) {
+            window.scrollTo({
+                top: props.showTimeSection.current.offsetTop - 90,
+                behavior: 'smooth'
+            });
+        } else {
+            history.push('/');
+        };
+    };
+
 
     //Đa ngôn ngữ
     const { t, i18n } = useTranslation();
@@ -26,7 +47,7 @@ export default function Header(props) {
 
     const handleChange = (value) => {
         i18n.changeLanguage(value);
-    }
+    };
 
     const renderLogin = () => {
         if (_.isEmpty(userLogin)) {
@@ -34,39 +55,39 @@ export default function Header(props) {
                 <button className="self-center px-8 py-3 rounded"><NavLink to="/login" className="text-white text-lg hover:text-purple-400">{t('Login')}</NavLink></button>
                 <button className="self-center px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-coolGray-900"><NavLink to="/register" className="text-white text-lg hover:text-purple-400">{t('Register')}</NavLink></button>
             </Fragment>
-        }
+        };
 
         return <div className="self-center px-8 py-3 rounded">
             <p className="border-b-2 border-purple-500 text-lg my-1"> {t('Hello')}! {userLogin.taiKhoan}</p>
             <NavLink to="/profile" className="text-white text-lg hover:text-purple-400">
                 {t('Profile')}
             </NavLink>
-            <button onClick={()=>{
+            {userLogin.maLoaiNguoiDung === 'QuanTri' ? <NavLink to="/admin" className="text-white ml-5 text-lg hover:text-purple-400">{t('Admin')}</NavLink> : ''}
+            <button onClick={() => {
                 localStorage.removeItem(USER_LOGIN);
                 localStorage.removeItem(ACCESSTOKEN);
                 history.push('/');
                 window.location.reload();
-            }}  className="text-white text-lg hover:text-purple-400 duration-500 ml-5">
+            }} className="text-white text-lg hover:text-purple-400 duration-500 ml-5">
                 {t('Logout')}
             </button>
         </div>
-
-    }
+    };
 
 
     return (
-        <header className="p-4 dark:bg-coolGray-800 dark:text-coolGray-100 bg-black bg-opacity-70 text-white fixed w-full z-10">
+        <header className="z-50 p-4 dark:bg-coolGray-800 dark:text-coolGray-100 bg-black bg-opacity-70 text-white fixed w-full">
             <div className="container flex justify-between h-16 mx-auto">
                 <Logo />
                 <ul className="items-stretch hidden space-x-3 lg:flex">
                     <li className="flex">
-                        <NavLink to="/home" activeClassName="customActiveLink" className="customLink">{t('Home')}</NavLink>
+                        <NavLink to="/home" className="customLink">{t('Home')}</NavLink>
                     </li>
                     <li className="flex">
-                        <NavLink to="/contact" activeClassName="customActiveLink" className="customLink">{t('Contact')}</NavLink>
+                        <div onClick={gotoMultiRowSection} className="customLink">{t('Films')}</div>
                     </li>
                     <li className="flex">
-                        <NavLink to="/news" activeClassName="customActiveLink" className="customLink">{t('News')}</NavLink>
+                        <div onClick={gotoShowTimeSection} className="customLink">{t('Showtimes')}</div>
                     </li>
                 </ul>
                 <div className="items-center flex-shrink-0 hidden lg:flex">
@@ -107,6 +128,5 @@ export default function Header(props) {
                 </button>
             </div>
         </header>
-
-    )
-}
+    );
+};

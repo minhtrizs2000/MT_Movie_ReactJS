@@ -29,3 +29,8 @@
 .ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-wrap {
     justify-content: center;
 }
+
+
+.slick-list{
+    width: 100%;
+}

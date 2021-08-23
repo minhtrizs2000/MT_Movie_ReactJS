@@ -1,11 +1,5 @@
-
-
-**vì bên 0706 k có api banner nên lấy banner bên movieapi
-
-//API LOAD BANNERs CAROUSEL: 
-
 http://movieapi.cyberlearn.vn/swagger/index.html
-
-//API CHÍNH SD TRONG PROJECT:
-
 https://movie0706.cybersoft.edu.vn/swagger/index.html
+
+
+chuyển hết sang sd api movieapi

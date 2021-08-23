@@ -1,0 +1,10 @@
+.scrollToTop .icon{
+    animation: scrollTop 0.5s alternate ease infinite;
+}
+@keyframes scrollTop{
+    from{
+        transform: translateY(2px);
+    }to{
+        transform: translateY(-10px);
+    }
+}

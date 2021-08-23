@@ -4,12 +4,39 @@ import { NavLink } from 'react-router-dom'
 import Logo from '../../../../components/Logo/Logo';
 import '../Header/Header.css';
 import _ from 'lodash'
+import { useTranslation } from 'react-i18next';
+import { history } from '../../../../App';
 
 export default function Footer(props) {
 
+    //Đa ngôn ngữ
+    const { t, i18n } = useTranslation();
+
+    const gotoMultiRowSection = () => {
+        if (props.multiRowSection.current) {
+            window.scrollTo({
+                top: props.multiRowSection.current.offsetTop - 90,
+                behavior: 'smooth'
+            });
+        } else {
+            history.push('/');
+        };
+    };
+
+    const gotoShowTimeSection = () => {
+        if (props.multiRowSection.current) {
+            window.scrollTo({
+                top: props.showTimeSection.current.offsetTop - 90,
+                behavior: 'smooth'
+            });
+        } else {
+            history.push('/');
+        };
+    };
+
     const { heThongRapChieu } = useSelector(state => state.QuanLyRapReducer);
 
-    const arrHeThongRap = _.map(heThongRapChieu, (heThongRap) => _.pick(heThongRap, ['maHeThongRap', 'tenHeThongRap', 'logo']))
+    const arrHeThongRap = _.map(heThongRapChieu, (heThongRap) => _.pick(heThongRap, ['maHeThongRap', 'tenHeThongRap', 'logo']));
 
     return (
         <footer className="py-6 dark:bg-coolGray-800 dark:text-coolGray-50 bg-gray-700 text-white">
@@ -18,24 +45,24 @@ export default function Footer(props) {
                     <div className="pb-6 col-span-full md:pb-0 md:col-span-3">
                         <Logo />
                     </div>
-                    <div className="col-span-6 text-center md:text-left md:col-span-3">
-                        <p className="pb-1 text-2xl text-pink-500 font-medium">CATEGORY</p>
-                        <NavLink to="/" className="customLink h-12 w-1/2">Home</NavLink>
-                        <NavLink to="/" className="customLink h-12 w-1/2">Contact</NavLink>
-                        <NavLink to="/" className="customLink h-12 w-1/2">About</NavLink>
+                    <div className="col-span-6 text-center md:text-left md:col-span-2 pr-5">
+                        <p className="pb-1 text-2xl text-pink-500 font-medium">{t('CATEGORY')}</p>
+                        <NavLink to="/home" activeClassName="customActiveLink" className="customLink py-3">{t('Home')}</NavLink>
+                        <div onClick={gotoMultiRowSection} activeClassName="customActiveLink" className="customLink cursor-pointer py-3 border-b-2 border-opacity-0">{t('Films')}</div>
+                        <div onClick={gotoShowTimeSection} activeClassName="customActiveLink" className="customLink cursor-pointer py-3 border-b-2 border-opacity-0">{t('Showtimes')}</div>
                     </div>
                     <div className="col-span-6 text-center md:text-left md:col-span-3">
-                        <p className="pb-1 text-2xl text-pink-500 font-medium">PARTNER</p>
+                        <p className="pb-1 text-2xl text-pink-500 font-medium">{t('PARTNER')}</p>
                         <div className="text-white grid grid-cols-3">
                             {arrHeThongRap.map((htr, index) => {
                                 return <div key={index}>
-                                    <img src={htr.logo} className="w-1/2 m-4" alt="img"/>
+                                    <img src={htr.logo} className="w-1/2 m-4" alt="img" />
                                 </div>
                             })}
                         </div>
                     </div>
                     <div className="col-span-6 text-center md:text-left md:col-span-3">
-                        <p className="py-1 text-2xl text-pink-500 font-medium">SOCIAL MEDIA</p>
+                        <p className="py-1 text-2xl text-pink-500 font-medium">{t('SOCIAL MEDIA')}</p>
                         <div className="flex justify-left pt-4 space-x-4 lg:pt-0 lg:col-end-13">
                             <a href="#" className="flex items-center justify-center w-10 h-10 rounded-full dark:bg-violet-400 dark:text-coolGray-900">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-8 h-8">
@@ -96,6 +123,5 @@ export default function Footer(props) {
                 </div>
             </div>
         </footer>
-
     )
-}
+};
