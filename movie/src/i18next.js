@@ -25,6 +25,9 @@ i18n
     whitelist: ['jp','cn','en','vi'], // lst cac ngon ngu~
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
+    },
+    react: {
+        useSuspense: false,
     }
   });
 
