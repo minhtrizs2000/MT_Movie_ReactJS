@@ -32,7 +32,7 @@ export const dangKyAction = (thongTinDangKy) => {
     return async (dispatch) => {
         try {
             dispatch(displayLoadingAction);
-            const result = await quanLyNguoiDungService.dangNhap(thongTinDangKy);
+            const result = await quanLyNguoiDungService.dangKy(thongTinDangKy);
             alert('Đăng ký thành công!');
             history.push('/login');
             dispatch(hideLoadingAction);

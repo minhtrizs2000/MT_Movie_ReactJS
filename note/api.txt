@@ -1,5 +1,0 @@
-http://movieapi.cyberlearn.vn/swagger/index.html
-https://movie0706.cybersoft.edu.vn/swagger/index.html
-
-
-chuyển hết sang sd api movieapi
